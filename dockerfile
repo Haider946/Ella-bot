@@ -1,10 +1,15 @@
-FROM python:3.10-slim
 
-WORKDIR /app
+FROM python:3.11-slim
 
-COPY . /app
+WORKDIR /usr/src/app
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+ENV PYTHONUNBUFFERED=1
 
 CMD ["python", "main.py"]
-  
